@@ -6,6 +6,7 @@
 ![Stars](https://img.shields.io/github/stars/semvis123/Headphonify?style=social)
 # Headphonify
 Work in progress...
+Please try at your own risk, this code is untested and is currently only partially functional.
 
 Bring the noise cancellation control of your headphones to the built-in iOS menu.
 
