@@ -1,0 +1,9 @@
+Package: com.semvis123.headphonify
+Name: Headphonify
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Headphonify, bring the noise cancellation control of your headphones to the built-in iOS menu.
+Maintainer: Sem Visscher
+Author: Sem Visscher
+Section: Tweaks
+Depends: mobilesubstrate, preferenceloader, firmware (>=13.0)
