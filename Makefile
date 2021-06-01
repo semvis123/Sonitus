@@ -5,6 +5,7 @@ include $(THEOS)/makefiles/common.mk
 ARCHS = arm64 arm64e
 TWEAK_NAME = Headphonify
 Headphonify_FILES = Tweak.xm SessionController.xm
+SUBPROJECTS += Preferences
 Headphonify_CFLAGS = -fobjc-arc -std=c++17
 Headphonify_FRAMEWORKS = Foundation UIKit
 Headphonify_PRIVATE_FRAMEWORKS = BackBoardServices

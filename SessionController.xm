@@ -10,7 +10,7 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 // low level write method - write data to the accessory while there is space available and data to write
 -(void)_writeData {
-    while (([[_session outputStream] hasSpaceAvailable]) && ([_writeData length] > 0)) {
+    while (_session != nil && [[_session outputStream] hasSpaceAvailable] && ([_writeData length] > 0)) {
         NSInteger bytesWritten = [[_session outputStream] write:static_cast<const unsigned char *>([_writeData bytes]) maxLength:[_writeData length]];
         if (bytesWritten == -1) {
             NSLog(@"write error");
@@ -82,13 +82,14 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 // close the session with the accessory.
 -(void)closeSession {
-    [[_session inputStream] close];
-    [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [[_session inputStream] setDelegate:nil];
-    [[_session outputStream] close];
-    [[_session outputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [[_session outputStream] setDelegate:nil];
-
+    if (_session != nil){
+        [[_session inputStream] close];
+        [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [[_session inputStream] setDelegate:nil];
+        [[_session outputStream] close];
+        [[_session outputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [[_session outputStream] setDelegate:nil];
+    }
     _session = nil;
     _writeData = nil;
     _readData = nil;
