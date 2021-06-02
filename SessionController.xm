@@ -61,28 +61,28 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 // open a session with the accessory and set up the input and output stream on the default run loop
 -(BOOL)openSession {
-    [_accessory setDelegate:self];
-    _session = [[EASession alloc] initWithAccessory:_accessory forProtocol:_protocolString];
+    if (_session == nil) {
+        [_accessory setDelegate:self];
+        _session = [[EASession alloc] initWithAccessory:_accessory forProtocol:_protocolString];
 
-    if (_session) {
-        [[_session inputStream] setDelegate:self];
-        [[_session inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [[_session inputStream] open];
+        if (_session) {
+            [[_session inputStream] setDelegate:self];
+            [[_session inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [[_session inputStream] open];
 
-        [[_session outputStream] setDelegate:self];
-        [[_session outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [[_session outputStream] open];
+            [[_session outputStream] setDelegate:self];
+            [[_session outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+            [[_session outputStream] open];
+        } else {
+            NSLog(@"creating session failed");
+        }
     }
-    else {
-        NSLog(@"creating session failed");
-    }
-
     return (_session != nil);
 }
 
 // close the session with the accessory.
 -(void)closeSession {
-    if (_session != nil){
+    if (_session != nil) {
         [[_session inputStream] close];
         [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         [[_session inputStream] setDelegate:nil];

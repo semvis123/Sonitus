@@ -3,6 +3,16 @@
 #import <ExternalAccessory/ExternalAccessory.h>
 #import <SessionController.h>
 
+bool focusOnVoiceNC = false;
+bool focusOnVoiceASM = false;
+bool windReductionSupport = true;
+bool isEnabled = true;
+char pingPong = 0x00;
+char NCValue = 0x0;
+char ASMValue = 0x14;
+NSString *headphonesName = @"WH-1000XM3";
+NSString *currentListeningMode = @"AVOutputDeviceBluetoothListeningModeNormal";
+dispatch_source_t closeSessionTimer = nil;
 
 @interface NSDistributedNotificationCenter : NSNotificationCenter
 +(id)defaultCenter;
