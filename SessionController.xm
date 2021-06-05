@@ -7,9 +7,12 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 @synthesize accessory = _accessory;
 @synthesize protocolString = _protocolString;
+@synthesize receiveDataCondition = _receiveDataCondition;
+@synthesize writeDataCondition = _writeDataCondition;
 
 // low level write method - write data to the accessory while there is space available and data to write
 -(void)_writeData {
+    [_writeDataCondition signal];
     while (_session != nil && [[_session outputStream] hasSpaceAvailable] && ([_writeData length] > 0)) {
         NSInteger bytesWritten = [[_session outputStream] write:static_cast<const unsigned char *>([_writeData bytes]) maxLength:[_writeData length]];
         if (bytesWritten == -1) {
@@ -24,18 +27,22 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 // low level read method - read data while there is data and space available in the input buffer
 -(void)_readData {
-    uint8_t buf[128];
-    while ([[_session inputStream] hasBytesAvailable]) {
-        NSInteger bytesRead = [[_session inputStream] read:buf maxLength:128];
-        if (_readData == nil) {
-            _readData = [[NSMutableData alloc] init];
-        }
-        [_readData appendBytes:(void *)buf length:bytesRead];
-        NSLog(@"read %ld bytes from input stream", bytesRead);
-        NSLog(@"read %@ bytes from input stream", _readData);
-    }
+    if (_session) {
+        uint8_t buf[128];
+        while ([[_session inputStream] hasBytesAvailable]) {
+            NSInteger bytesRead = [[_session inputStream] read:buf maxLength:128];
+            if (_readData == nil) {
+                _readData = [[NSMutableData alloc] init];
+            }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:SessionDataReceivedNotification object:self userInfo:nil];
+            [_readData appendBytes:(void *)buf length:bytesRead];
+            NSLog(@"read %ld bytes from input stream", bytesRead);
+            NSLog(@"read %@ bytes from input stream", _readData);
+        }
+
+        [_receiveDataCondition signal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SessionDataReceivedNotification object:self userInfo:nil];
+    }
 }
 
 
@@ -57,11 +64,13 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 -(void)setupControllerForAccessory:(EAAccessory *)accessory withProtocolString:(NSString *)protocolString {
     _accessory = accessory;
     _protocolString = protocolString;
+    _receiveDataCondition = [[NSCondition alloc] init];
+    _writeDataCondition = [[NSCondition alloc] init];
 }
 
 // open a session with the accessory and set up the input and output stream on the default run loop
--(BOOL)openSession {
-    if (_session == nil) {
+-(bool)openSession {
+    if (_session == nil && _protocolString && _accessory) {
         [_accessory setDelegate:self];
         _session = [[EASession alloc] initWithAccessory:_accessory forProtocol:_protocolString];
 
@@ -77,6 +86,10 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
             NSLog(@"creating session failed");
         }
     }
+    return (_session != nil);
+}
+
+-(bool)sessionIsOpen {
     return (_session != nil);
 }
 
@@ -121,6 +134,9 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
     return [_readData length];
 }
 
+-(bool)hasSpaceAvailable {
+    return [[_session outputStream] hasSpaceAvailable];
+}
 
 // asynchronous NSStream handleEvent method
 -(void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode {

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <ExternalAccessory/ExternalAccessory.h>
 
-extern NSString *EADSessionDataReceivedNotification;
+extern NSString *SessionDataReceivedNotification;
 
 @interface SessionController : NSObject <EAAccessoryDelegate, NSStreamDelegate> {
     EAAccessory *_accessory;
@@ -13,13 +13,17 @@ extern NSString *EADSessionDataReceivedNotification;
 
 @property (nonatomic, readonly) EAAccessory *accessory;
 @property (nonatomic, readonly) NSString *protocolString;
+@property (nonatomic, strong, readonly) NSCondition *receiveDataCondition;
+@property (nonatomic, strong, readonly) NSCondition *writeDataCondition;
 
 +(SessionController *)sharedController;
 -(void)setupControllerForAccessory:(EAAccessory *)accessory withProtocolString:(NSString *)protocolString;
--(BOOL)openSession;
+-(bool)openSession;
 -(void)closeSession;
+-(bool)sessionIsOpen;
 -(void)writeData:(NSData *)data;
 -(NSUInteger)readBytesAvailable;
+-(bool)hasSpaceAvailable;
 -(NSData *)readData:(NSUInteger)bytesToRead;
 
 @end
