@@ -22,7 +22,7 @@
 
 					[[SessionController sharedController] setupControllerForAccessory:accessory withProtocolString:@"jp.co.sony.songpal.mdr.link"];
 					[[SessionController sharedController] openSession];
-					dispatch_async(dispatch_get_main_queue(), ^{
+					dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 						[[[SessionController sharedController] writeDataCondition] lock];
 						while (![[SessionController sharedController] hasSpaceAvailable]){
 							[[[SessionController sharedController] writeDataCondition] wait];
