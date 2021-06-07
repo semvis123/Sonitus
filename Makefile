@@ -4,10 +4,9 @@ THEOS_DEVICE_IP = 192.168.2.1
 include $(THEOS)/makefiles/common.mk
 ARCHS = arm64 arm64e
 TWEAK_NAME = Headphonify
-Headphonify_FILES = Tweak.xm SessionController.xm
+$(TWEAK_NAME)_FILES = Tweak.xm SessionController.xm Sony.xm
 SUBPROJECTS += Preferences
-Headphonify_CFLAGS = -fobjc-arc -std=c++17
-Headphonify_FRAMEWORKS = Foundation UIKit
-Headphonify_PRIVATE_FRAMEWORKS = BackBoardServices
+$(TWEAK_NAME)_CFLAGS = -fobjc-arc -std=c++17
+$(TWEAK_NAME)_FRAMEWORKS = Foundation
 include $(THEOS_MAKE_PATH)/tweak.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
