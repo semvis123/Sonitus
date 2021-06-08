@@ -12,7 +12,6 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 
 // low level write method - write data to the accessory while there is space available and data to write
 -(void)_writeData {
-    [_writeDataCondition signal];
     while (_session != nil && [[_session outputStream] hasSpaceAvailable] && ([_writeData length] > 0)) {
         NSInteger bytesWritten = [[_session outputStream] write:static_cast<const unsigned char *>([_writeData bytes]) maxLength:[_writeData length]];
         if (bytesWritten == -1) {
@@ -23,6 +22,7 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
              [_writeData replaceBytesInRange:NSMakeRange(0, bytesWritten) withBytes:NULL length:0];
         }
     }
+    [_writeDataCondition signal];
 }
 
 // low level read method - read data while there is data and space available in the input buffer

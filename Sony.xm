@@ -57,6 +57,12 @@
 		commandPacked[1 + sizeof(command) + 1] = 0x3c;
 
 		[[SessionController sharedController] writeData:[NSData dataWithBytes:commandPacked length:sizeof(commandPacked)]];
+		[[[SessionController sharedController] writeDataCondition] lock];
+		while (![[SessionController sharedController] hasSpaceAvailable]){
+			[[[SessionController sharedController] writeDataCondition] wait];
+		}
+		[[[SessionController sharedController] writeDataCondition] unlock];
+
 		if (closeSessionTimer != nil){
 			dispatch_source_cancel(closeSessionTimer);
 			closeSessionTimer = nil;
