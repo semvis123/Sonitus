@@ -7,6 +7,7 @@
 # Headphonify
 Work in progress...
 Please try at your own risk, this code is untested and is currently only partially functional.
+This tweak is very similar to Sonyfy (my other tweak) but excludes the need for the app, and might support other headphones in the future.
 
 Bring the noise cancellation control of your headphones to the built-in iOS menu.
 
