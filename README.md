@@ -11,6 +11,9 @@ This tweak is very similar to Sonyfy (my other tweak) but excludes the need for 
 
 Bring the noise cancellation control of your headphones to the built-in iOS menu.
 
+# Headphones/earbuds that will get support (currently being worked on)
+WH-1000XM3, WF-1000XM4, Anker SoundCore Q30. Would you like to see other headphones supported as well? Open an issue (or open a pull request), or DM me on Twitter.
+
 # How does it work?
 It sends specific noise cancellation information to your headphones.
 
