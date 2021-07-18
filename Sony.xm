@@ -30,20 +30,28 @@
 -(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode forAccessory:(EAAccessory *)accessory {
 	pingPong = pingPong && [[SessionController sharedController] sessionIsOpen]? 0x00: 0x01;
 
-	[[SessionController sharedController] setupControllerForAccessory:accessory withProtocolString:@"jp.co.sony.songpal.mdr.link"];
+	bool v2 = false;
+	[[SessionController sharedController] setupControllerForAccessory:accessory withProtocolString: v2? @"jp.co.sony.songpal.mdr.link2": @"jp.co.sony.songpal.mdr.link"];
 	[[SessionController sharedController] openSession];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+	// create a new dispatch queue
+	dispatch_queue_t queue = dispatch_queue_create("com.semvis123.headphonify.queue", NULL);
+
+	dispatch_async(queue, ^{
 		[[[SessionController sharedController] writeDataCondition] lock];
 		while (![[SessionController sharedController] hasSpaceAvailable]){
 			[[[SessionController sharedController] writeDataCondition] wait];
 		}
 		[[[SessionController sharedController] writeDataCondition] unlock];
-		char sendStatus = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"] ? 0x00 : 0x11; 
-		char ncAsmValue = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"] ? NCValue : ASMValue;
-		char focusOnVoice = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"] ? focusOnVoiceNC : focusOnVoiceASM;
+		bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
+		bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
+		char sendStatus = v2? 0x1 : isOff ? 0x00 : 0x11;
+		char ncAsmValue = isNC? NCValue : ASMValue;
+		char focusOnVoice = isNC? focusOnVoiceNC : focusOnVoiceASM;
 		char dualSingleValue = ncAsmValue == 0 ? (windReductionSupport? 0x2: 0x1) : (ncAsmValue == 1 ? 0x1 : 0x0);
 		char settingType = !windReductionSupport && ncAsmValue == 0 ? 0x0 : 0x2;
-		char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, 0x2, sendStatus, settingType, dualSingleValue, !!settingType, focusOnVoice, ncAsmValue};
+		char inquiredType = v2? 0x15 : 0x2;
+		// char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, 0x2, sendStatus, settingType, dualSingleValue, !!settingType, focusOnVoice, ncAsmValue};
+		char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, inquiredType, sendStatus, static_cast<char>(v2? !isOff : settingType), static_cast<char>(v2? !isNC : dualSingleValue), static_cast<char>(v2? focusOnVoice? 0x5 : 0x2 : !!settingType), focusOnVoice, ncAsmValue};
 
 		unsigned char sum = 0;
 		for (int i = 0; i < sizeof(command); i++){
