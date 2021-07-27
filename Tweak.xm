@@ -3,6 +3,9 @@
 bool isEnabled = true;
 NSString *headphonesName = @"WH-1000XM3";
 
+#define headphonesController SonyController
+#define useExternalAccessory false
+
 %hook AVOutputDevice
 
 -(id)availableBluetoothListeningModes {
@@ -18,11 +21,23 @@ NSString *headphonesName = @"WH-1000XM3";
 
 -(BOOL)setCurrentBluetoothListeningMode:(id)arg1 error:(id*)arg2  {
 	if (isEnabled && [self.name isEqual:headphonesName]){
-		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-		for (EAAccessory *accessory in accessories) {
-			if ([[accessory modelNumber] isEqual:headphonesName]){
-				[[SonyController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory];
+		if (useExternalAccessory){
+			NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+			for (EAAccessory *accessory in accessories) {
+				if ([[self valueForKey:@"ID"] containsString:[accessory valueForKey:@"macAddress"]]){
+					if ([accessory.protocolStrings containsObject:@"jp.co.sony.songpal.mdr.link"]){
+						[[SonyController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory v2:NO];
+					} else if ([accessory.protocolStrings containsObject:@"jp.co.sony.songpal.mdr.link2"]){
+						[[SonyController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory v2:YES];
+					} else if ([accessory.protocolStrings containsObject:@"com.bose.bmap"]){
+						[[BoseController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory v2:NO];
+					} else if ([accessory.protocolStrings containsObject:@"com.bose.bmap2"]){
+						[[BoseController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory v2:YES];
+					}
+				}
 			}
+		} else {
+			[[SoundcoreController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:nil];
 		}
 		return true;
 	}
@@ -31,12 +46,13 @@ NSString *headphonesName = @"WH-1000XM3";
 
 -(id)currentBluetoothListeningMode {
 	if (isEnabled && [self.name isEqual:headphonesName]){
-		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
-		for (EAAccessory *accessory in accessories) {
-			if ([[accessory modelNumber] isEqual:headphonesName]){
-				return [[SonyController sharedInstance] getCurrentListeningModeOfAccessory:accessory];
-			}
-		}
+		// NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
+		// for (EAAccessory *accessory in accessories) {
+		// 	if ([[self valueForKey:@"ID"] containsString:[accessory valueForKey:@"macAddress"]]){
+		// 		return [[SonyController sharedInstance] getCurrentListeningModeOfAccessory:accessory];
+		// 	}
+		// }
+		return nil;
 	}
 	return %orig;
 }
@@ -48,7 +64,7 @@ void updatePrefs() {
 	{
 		isEnabled = [prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : isEnabled;
 		headphonesName = [prefs objectForKey:@"headphonesName"] ? [prefs objectForKey:@"headphonesName"] : headphonesName;
-		[[SonyController sharedInstance] useSettings:prefs];
+		[[headphonesController sharedInstance] useSettings:prefs];
 	}
 }
 

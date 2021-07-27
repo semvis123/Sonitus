@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
-#import <Sony.h>
-#import <ExternalAccessory/ExternalAccessory.h>
+#import "Sony.h"
+#import "Bose.h"
+#import "Soundcore.h"
 
 @interface NSDistributedNotificationCenter : NSNotificationCenter
 +(id)defaultCenter;
@@ -11,4 +12,5 @@
 
 @interface AVOutputDevice : NSObject
 -(NSString *)name;
+-(NSString *)ID;
 @end
