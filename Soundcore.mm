@@ -26,7 +26,7 @@
 			[self.centralManager connectPeripheral:self.peripheral options:nil];
 		}
 	} else {
-		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"DAF51C01"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @1}];
+		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"DAF51C01"]] options:nil];
 	}
 }
 
@@ -47,7 +47,7 @@
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central {
 	if (central.state == CBManagerStatePoweredOn) {
 		NSArray<CBUUID *> *serviceUUIDs = @[[CBUUID UUIDWithString:@"DAF51C01"]];
-		[self.centralManager scanForPeripheralsWithServices:serviceUUIDs options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @1}];
+		[self.centralManager scanForPeripheralsWithServices:serviceUUIDs options:nil];
 	}
 }
 
