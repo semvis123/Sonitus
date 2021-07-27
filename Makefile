@@ -9,6 +9,6 @@ TWEAK_NAME = Headphonify
 $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm
 SUBPROJECTS += Preferences
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc -std=c++17
-$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory
+$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory CoreBluetooth
 include $(THEOS_MAKE_PATH)/tweak.mk
 include $(THEOS_MAKE_PATH)/aggregate.mk
