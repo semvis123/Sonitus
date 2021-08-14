@@ -2,11 +2,11 @@
 #import <ExternalAccessory/ExternalAccessory.h>
 #include "spawn.h"
 
-@interface SoundcoreController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
-+(SoundcoreController *)sharedInstance;
+@interface SennheiserController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
++(SennheiserController *)sharedInstance;
 -(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode;
 -(NSString *)getCurrentListeningMode;
--(void)setListeningMode:(NSString *)listeningMode forPeripheral:(CBPeripheral *)peripheral forCharacteristic:(CBCharacteristic *)characteristic initializeConnection: (BOOL)initialize;
+-(void)setListeningMode:(NSString *)listeningMode forPeripheral:(CBPeripheral *)peripheral forCharacteristic:(CBCharacteristic *)characteristic;
 
 @property (nonatomic, strong) CBCentralManager *centralManager;
 @property (nonatomic, strong) CBPeripheral *peripheral;

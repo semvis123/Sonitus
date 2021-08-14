@@ -5,7 +5,7 @@
 	<key>entry</key>
 	<dict>
 		<key>bundle</key>
-		<string>headphonifyPreferences</string>
+		<string>sonitusPreferences</string>
 		<key>cell</key>
 		<string>PSLinkCell</string>
 		<key>detail</key>
@@ -15,7 +15,7 @@
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>Headphonify</string>
+		<string>Sonitus</string>
 	</dict>
 </dict>
 </plist>

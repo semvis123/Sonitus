@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>headphonifyPreferences</string>
+	<string>sonitusPreferences</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.semvis123.headphonifyPreferences</string>
+	<string>com.semvis.sonituspreferences</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -19,6 +19,6 @@
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>NSPrincipalClass</key>
-	<string>HPBRootListController</string>
+	<string>SPBRootListController</string>
 </dict>
 </plist>

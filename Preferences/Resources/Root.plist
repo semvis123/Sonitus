@@ -5,38 +5,21 @@
 		<key>items</key>
 		<array>
 			<dict>
-				<key>action</key>
-				<string>twitter</string>
-				<key>cell</key>
-				<string>PSButtonCell</string>
-				<key>icon</key>
-				<string>twitter.png</string>
-				<key>label</key>
-				<string>@semvis123</string>
-			</dict>
-			<dict>
-				<key>action</key>
-				<string>github</string>
-				<key>cell</key>
-				<string>PSButtonCell</string>
-				<key>icon</key>
-				<string>github.png</string>
-				<key>label</key>
-				<string>semvis123</string>
-			</dict>
-			<dict>
-				<key>action</key>
-				<string>donate</string>
-				<key>cell</key>
-				<string>PSButtonCell</string>
-				<key>label</key>
-				<string>Donate</string>
-			</dict>
-			<dict>
+				<key>id</key>
+				<string>packageNameHeader</string>
 				<key>cell</key>
 				<string>PSGroupCell</string>
-				<key>label</key>
-				<string></string>
+				<key>headerCellClass</key>
+				<string>PackageNameHeaderCell</string>
+				<key>packageIdentifier</key>
+				<string>com.semvis.sonitus</string>
+				<key>backgroundGradientColors</key>
+				<array>
+					<string>#064A5F</string>
+					<string>#031418</string>
+				</array>
+				<key>footerText</key>
+				<string>Currently supported devices: Sony, Bose and Soundcore (beta). Please contact me using one of the links below if you encounter some issues.</string>
 			</dict>
 			<dict>
 				<key>cell</key>
@@ -44,31 +27,18 @@
 				<key>default</key>
 				<true />
 				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
+				<string>com.semvis.sonituspreferences</string>
 				<key>key</key>
-				<string>enabled</string>
+				<string>Enabled</string>
 				<key>label</key>
 				<string>Enabled</string>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
-			</dict>
-			<dict>
-				<key>action</key>
-				<string>respring:</string>
-				<key>cell</key>
-				<string>PSButtonCell</string>
-				<key>label</key>
-				<string>Respring to apply changes</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSGroupCell</string>
-				<key>label</key>
-				<string>Advanced settings</string>
-				<key>footerText</key>
-				<string>Turning off this setting might fix the noise cancelling setting on models that don't support wind reduction.</string>
-				<key>isStaticText</key>
-				<true/>
+				<key>iconImageSystem</key>
+				<dict>
+					<key>name</key>
+					<string>switch.2</string>
+					<key>tintColor</key>
+					<string>#ffffff</string>
+				</dict>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -76,11 +46,11 @@
 				<key>cell</key>
 				<string>PSLinkListCell</string>
 				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
+				<string>com.semvis.sonituspreferences</string>
 				<key>detail</key>
 				<string>PSListItemsController</string>
 				<key>key</key>
-				<string>headphonesName</string>
+				<string>HeadphonesName</string>
 				<key>label</key>
 				<string>Select your headphones:</string>
 				<key>validTitles</key>
@@ -89,131 +59,99 @@
 				<key>validValues</key>
 				<array>
 				</array>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
+				<key>iconImageSystem</key>
+				<dict>
+					<key>name</key>
+					<string>headphones</string>
+					<key>tintColor</key>
+					<string>#ffffff</string>
+				</dict>
 			</dict>
 			<dict>
 				<key>cell</key>
-				<string>PSSwitchCell</string>
-				<key>default</key>  
-				<true />
-				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
-				<key>key</key>
-				<string>windReductionSupport</string>
+				<string>PSGroupCell</string>
 				<key>label</key>
-				<string>Headphones support wind reduction</string>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
+				<string>Other settings</string>
+				<key>isStaticText</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSLinkCell</string>
+				<key>detail</key>
+				<string>SPBSonyListController</string>
+				<key>isController</key>
+				<true/>
+				<key>label</key>
+				<string>Sony specific settings</string>
+				<key>iconImageSystem</key>
+				<dict>
+					<key>name</key>
+					<string>gearshape.2.fill</string>
+					<key>tintColor</key>
+					<string>#ffffff</string>
+				</dict>
 			</dict>
 			<dict>
 				<key>cell</key>
 				<string>PSGroupCell</string>
 				<key>label</key>
 				<string></string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSGroupCell</string>
-				<key>label</key>
-				<string>Noise cancelling mode</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSStaticTextCell</string>
-				<key>label</key>
-				<string>Ambient sound level</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSSliderCell</string>
-				<key>default</key>
-				<real>0</real>
-				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
-				<key>key</key>
-				<string>NCValue</string>
-				<key>min</key>
-				<real>0</real>
-				<key>max</key>
-				<real>20</real>
-				<key>showValue</key>
-				<true />
-				<key>isSegmented</key>
-				<true />
-				<key>segmentCount</key>
-				<real>20</real>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSSwitchCell</string>
-				<key>default</key>
-				<false />
-				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
-				<key>key</key>
-				<string>focusOnVoiceNC</string>
-				<key>label</key>
-				<string>Focus on voice</string>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSGroupCell</string>
-				<key>label</key>
-				<string>Transparency mode</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSStaticTextCell</string>
-				<key>label</key>
-				<string>Ambient sound level</string>
-				<key>footerText</key>
-				<string>Semvis123 © 2021</string>
 				<key>isStaticText</key>
 				<true/>
+				<key>footerAlignment</key>
+				<real>1</real>
+				<key>footerText</key>
+				<string>Semvis © 2021</string>
 			</dict>
 			<dict>
-				<key>cell</key>
-				<string>PSSliderCell</string>
-				<key>default</key>
-				<real>20</real>
-				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
-				<key>key</key>
-				<string>ASMValue</string>
-				<key>min</key>
-				<real>0</real>
-				<key>max</key>
-				<real>20</real>
-				<key>showValue</key>
-				<true />
-				<key>isSegmented</key>
-				<true />
-				<key>segmentCount</key>
-				<real>20</real>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
-			</dict>
-			<dict>
-				<key>cell</key>
-				<string>PSSwitchCell</string>
-				<key>default</key>
-				<false />
-				<key>defaults</key>
-				<string>com.semvis123.headphonifypreferences</string>
-				<key>key</key>
-				<string>focusOnVoiceASM</string>
+				<key>cellClass</key>
+				<string>HBTwitterCell</string>
 				<key>label</key>
-				<string>Focus on voice</string>
-				<key>PostNotification</key>
-				<string>com.semvis123.headphonifypreferences/update</string>
+				<string>Twitter</string>
+				<key>showAvatar</key>
+				<true/>
+				<key>user</key>
+				<string>semvis123</string>
+			</dict>
+			<dict>
+				<key>cellClass</key>
+				<string>HBLinkTableCell</string>
+				<key>label</key>
+				<string>GitHub</string>
+				<key>subtitle</key>
+				<string>This tweak is fully open-source</string>
+				<key>url</key>
+				<string>https://github.com/semvis123/sonitus</string>
+				<key>icon</key>
+				<string>github.png</string>
+			</dict>
+			<dict>
+				<key>cellClass</key>
+				<string>HBLinkTableCell</string>
+				<key>label</key>
+				<string>Discord server</string>
+				<key>subtitle</key>
+				<string>Say hello 👋</string>
+				<key>url</key>
+				<string>https://discord.gg/hHqwhQKk89</string>
+				<key>icon</key>
+				<string>discord.png</string>
+			</dict>
+			<dict>
+				<key>cellClass</key>
+				<string>HBLinkTableCell</string>
+				<key>label</key>
+				<string>Buy me a coffee</string>
+				<key>subtitle</key>
+				<string>Appreciated :)</string>
+				<key>url</key>
+				<string>https://ko-fi.com/semvis</string>
+				<key>icon</key>
+				<string>donate.png</string>
 			</dict>
 		</array>
 		<key>title</key>
-		<string>Headphonify</string>
+		<string>🎧</string>
 	</dict>
 </plist>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>These settings apply to the Sony headphones launched before the WF-1000XM4.</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Noise cancelling mode</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>NCValueText</string>
+			<key>cell</key>
+			<string>PSStaticTextCell</string>
+			<key>label</key>
+			<string>Ambient sound level</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+			<string>HBDiscreteSliderTableCell</string>
+			<key>default</key>
+			<real>0</real>
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyNCValue</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>20</real>
+			<key>isSegmented</key>
+			<true />
+			<key>segmentCount</key>
+			<real>20</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false />
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyFocusOnVoiceNC</string>
+			<key>label</key>
+			<string>Focus on voice</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Transparency mode</string>
+		</dict>
+		<dict>
+			<key>id</key>
+			<string>ASMValueText</string>
+			<key>cell</key>
+			<string>PSStaticTextCell</string>
+			<key>label</key>
+			<string>Ambient sound level</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>default</key>
+			<real>20</real>
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyASMValue</string>
+			<key>min</key>
+			<real>0</real>
+			<key>max</key>
+			<real>20</real>
+			<key>isSegmented</key>
+			<true />
+			<key>segmentCount</key>
+			<real>20</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false />
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyFocusOnVoiceASM</string>
+			<key>label</key>
+			<string>Focus on voice</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Advanced settings</string>
+			<key>footerText</key>
+			<string>Turning off this setting might fix the noise cancelling setting on models that don't support wind reduction.</string>
+			<key>isStaticText</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>  
+			<true />
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyWindReductionSupport</string>
+			<key>label</key>
+			<string>Supports wind reduction</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Sony</string>
+</dict>
+</plist>

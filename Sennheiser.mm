@@ -1,21 +1,21 @@
-#import "Soundcore.h"
+#import "Sennheiser.h"
 
-@implementation SoundcoreController {}
+@implementation SennheiserController {}
 
 
-+(SoundcoreController *)sharedInstance {
-	static SoundcoreController *soundcoreController = nil;
-	if (soundcoreController == nil) {
-		soundcoreController = [SoundcoreController new];
++(SennheiserController *)sharedInstance {
+	static SennheiserController *sennheiserController = nil;
+	if (sennheiserController == nil) {
+		sennheiserController = [SennheiserController new];
 	}
 
-	return soundcoreController;
+	return sennheiserController;
 }
 
 -(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode {
-	pid_t pid;
-	const char *args[] = {"killall", "-9", "SoundCore", NULL};
-	posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);
+	// pid_t pid;
+	// const char *args[] = {"killall", "-9", "SoundCore", NULL};
+	// posix_spawn(&pid, "/usr/bin/killall", NULL, NULL, (char *const *)args, NULL);
 
 	self.shouldChangeTolisteningMode = listeningMode;
 	if (self.centralManager == nil) {
@@ -24,29 +24,20 @@
 	}
 	if (self.peripheral != nil && self.foundCharacteristic != nil) {
 		if (self.peripheral.state == CBPeripheralStateConnected) {
-			[self setListeningMode:listeningMode forPeripheral:self.peripheral forCharacteristic:self.foundCharacteristic initializeConnection:NO];
+			[self setListeningMode:listeningMode forPeripheral:self.peripheral forCharacteristic:self.foundCharacteristic];
 		} else {
 			[self.centralManager connectPeripheral:self.peripheral options:nil];
 		}
 	} else {
-		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"DAF51C01"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"FDCE"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
 	}
 }
 
--(void)setListeningMode:(NSString *)listeningMode forPeripheral:(CBPeripheral *)peripheral forCharacteristic:(CBCharacteristic *)characteristic initializeConnection:(BOOL)initialize {
-	bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
+-(void)setListeningMode:(NSString *)listeningMode forPeripheral:(CBPeripheral *)peripheral forCharacteristic:(CBCharacteristic *)characteristic {
+	// bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
 	bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
 	self.shouldChangeTolisteningMode = nil;
-	if (initialize) {
-		Byte initializeCommand[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x01, 0x01, 0x0a, 0x00, 0x02};
-		NSData *initializeData = [NSData dataWithBytes:initializeCommand length:sizeof(initializeCommand)];
-		[peripheral writeValue:initializeData forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-		Byte initializeCommand2[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x05, 0x01, 0x0a, 0x00, 0x06};
-		NSData *initializeData2 = [NSData dataWithBytes:initializeCommand2 length:sizeof(initializeCommand2)];
-		[peripheral writeValue:initializeData2 forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-	}
-
-	Byte command[] = { 0x08, 0xee, 0x00, 0x00, 0x00, 0x06, 0x81, 0x0e, 0x00, static_cast<Byte>(isOff ? 0x02 : isNC ? 0x00 : 0x01), 0x00, 0x01, 0x00, static_cast<Byte>(isOff ? 0x8e : isNC ? 0x8c : 0x8d)};
+	Byte command[] = { 0x04, 0x94, 0x07, 0x08, 0x00, static_cast<Byte>(isNC? 0x00 : 0x01) };
 	NSData *data = [NSData dataWithBytes:command length:sizeof(command)];
 	[peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 }
@@ -66,7 +57,7 @@
 	} else {
 		if (self.shouldChangeTolisteningMode != nil) {
 			if (self.foundCharacteristic != nil) {
-				[self setListeningMode:self.shouldChangeTolisteningMode forPeripheral:peripheral forCharacteristic:self.foundCharacteristic initializeConnection:NO];
+				[self setListeningMode:self.shouldChangeTolisteningMode forPeripheral:peripheral forCharacteristic:self.foundCharacteristic];
 			} else {
 				[self.peripheral discoverServices:nil];
 			}
@@ -89,13 +80,12 @@
 	if (error) return;
 
 	for (CBCharacteristic *characteristic in service.characteristics) {
-		if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"7777"]]) {
-			self.foundCharacteristic = characteristic;
+		if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"63331338-23C1-11E5-B696-FEFF819CDC9F"]]) {
 			if (self.shouldChangeTolisteningMode != nil) {
+				self.foundCharacteristic = characteristic;
 				[self.centralManager stopScan];
-				[self setListeningMode:self.shouldChangeTolisteningMode forPeripheral:peripheral forCharacteristic:self.foundCharacteristic initializeConnection:YES];
+				[self setListeningMode:self.shouldChangeTolisteningMode forPeripheral:peripheral forCharacteristic:self.foundCharacteristic];
 			}
-			break;
 		}
 	}
 }

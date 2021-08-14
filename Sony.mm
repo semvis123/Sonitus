@@ -19,21 +19,13 @@
 	return sonyController;
 }
 
--(void)useSettings: (NSMutableDictionary *)settings {
-	focusOnVoiceASM = [settings objectForKey:@"focusOnVoiceASM"] ? [[settings objectForKey:@"focusOnVoiceASM"] boolValue] : false;
-	focusOnVoiceNC = [settings objectForKey:@"focusOnVoiceNC"] ? [[settings objectForKey:@"focusOnVoiceNC"] boolValue] : false;
-	NCValue = [settings objectForKey:@"NCValue"] ? [[settings objectForKey:@"NCValue"] intValue] : 0x0;
-	ASMValue = [settings objectForKey:@"ASMValue"] ? [[settings objectForKey:@"ASMValue"] intValue] : 0x14;
-	windReductionSupport = [settings objectForKey:@"windReductionSupport"] ? [[settings objectForKey:@"windReductionSupport"] boolValue] : true;
-}
-
--(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode forAccessory:(EAAccessory *)accessory v2: (BOOL)v2 {
+-(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode forAccessory:(EAAccessory *)accessory v2: (BOOL)v2 withPreferences:(HBPreferences *)preferences {
 	pingPong = pingPong && [[SessionController sharedController] sessionIsOpen]? 0x00: 0x01;
 
 	[[SessionController sharedController] setupControllerForAccessory:accessory withProtocolString: v2 ? @"jp.co.sony.songpal.mdr.link2": @"jp.co.sony.songpal.mdr.link"];
 	[[SessionController sharedController] openSession];
-	// create a new dispatch queue
-	dispatch_queue_t queue = dispatch_queue_create("com.semvis123.headphonify.queue", NULL);
+
+	dispatch_queue_t queue = dispatch_queue_create("com.semvis.sonitus.queue", NULL);
 
 	dispatch_async(queue, ^{
 		[[[SessionController sharedController] writeDataCondition] lock];
@@ -44,10 +36,10 @@
 		bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
 		bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
 		char sendStatus = v2? 0x1 : isOff ? 0x00 : 0x11;
-		char ncAsmValue = isNC? NCValue : ASMValue;
-		char focusOnVoice = isNC? focusOnVoiceNC : focusOnVoiceASM;
-		char dualSingleValue = ncAsmValue == 0 ? (windReductionSupport? 0x2: 0x1) : (ncAsmValue == 1 ? 0x1 : 0x0);
-		char settingType = !windReductionSupport && ncAsmValue == 0 ? 0x0 : 0x2;
+		char ncAsmValue = isNC? [preferences integerForKey:@"SonyNCValue"] : [preferences integerForKey:@"SonyASMValue"];
+		char focusOnVoice = isNC? [preferences integerForKey:@"SonyFocusOnVoiceNC"] : [preferences integerForKey:@"SonyFocusOnVoiceASM"];
+		char dualSingleValue = ncAsmValue == 0 ? ([preferences boolForKey:@"SonyWindReductionSupport"]? 0x2: 0x1) : (ncAsmValue == 1 ? 0x1 : 0x0);
+		char settingType = ![preferences boolForKey:@"SonyWindReductionSupport"] && ncAsmValue == 0 ? 0x0 : 0x2;
 		char inquiredType = v2? 0x15 : 0x2;
 		char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, inquiredType, sendStatus, static_cast<char>(v2 ? !isOff : settingType), static_cast<char>(v2 ? !isNC : dualSingleValue), static_cast<char>(v2 ? focusOnVoice? 0x5 : 0x2 : !!settingType), focusOnVoice, ncAsmValue};
 

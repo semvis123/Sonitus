@@ -13,14 +13,11 @@
 	return boseController;
 }
 
--(void)useSettings: (NSMutableDictionary *)settings {
-}
-
 -(void)setCurrentBluetoothListeningMode:(NSString *)listeningMode forAccessory:(EAAccessory *)accessory v2: (BOOL) v2 {
 	[[SessionController sharedController] setupControllerForAccessory:accessory withProtocolString: v2 ? @"com.bose.bmap2" : @"com.bose.bmap"];
 	[[SessionController sharedController] openSession];
 	// create a new dispatch queue
-	dispatch_queue_t queue = dispatch_queue_create("com.semvis123.headphonify.queue", NULL);
+	dispatch_queue_t queue = dispatch_queue_create("com.semvis.sonitus.queue", NULL);
 
 	dispatch_async(queue, ^{
 		[[[SessionController sharedController] writeDataCondition] lock];
@@ -58,4 +55,5 @@
 -(NSString *)getCurrentListeningModeOfAccessory: (EAAccessory *)accessory {
 	return nil;
 }
+
 @end

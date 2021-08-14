@@ -2,6 +2,10 @@
 #import "Sony.h"
 #import "Bose.h"
 #import "Soundcore.h"
+#import "Sennheiser.h"
+#import <Cephei/HBPreferences.h>
+
+HBPreferences *preferences;
 
 @interface NSDistributedNotificationCenter : NSNotificationCenter
 +(id)defaultCenter;
