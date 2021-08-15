@@ -2,8 +2,19 @@
 
 @implementation PackageNameHeaderCell
 - (void)setFrame:(CGRect)frame {
-	CGFloat contentOffset = ((UIScrollView *)[self.superview valueForKey:@"scrollView"]).contentOffset.y;
-	UINavigationBar *navigationBar = ((SPBRootListController *)[self.superview.superview valueForKey:@"viewDelegate"]).navigationController.navigationController.navigationBar; 
+	frame.origin.y = 0;
+	frame.origin.x = 0;
+	CGFloat contentOffset;
+	UINavigationBar *navigationBar; 
+	// fix for Shuffle inset Tables setting
+ 	if ([NSStringFromClass([self.superview class]) isEqualToString:@"UITableViewWrapperView"])
+    {		
+		contentOffset = ((UIScrollView *)[self.superview.superview valueForKey:@"scrollView"]).contentOffset.y;
+		navigationBar = ((SPBRootListController *)[self.superview.superview.superview valueForKey:@"viewDelegate"]).navigationController.navigationController.navigationBar; 
+    }	else {
+		contentOffset = ((UIScrollView *)[self.superview valueForKey:@"scrollView"]).contentOffset.y;
+		navigationBar = ((SPBRootListController *)[self.superview.superview valueForKey:@"viewDelegate"]).navigationController.navigationController.navigationBar; 
+	}
 	CGFloat navBarCompensation = navigationBar.frame.size.height + navigationBar.frame.origin.y; 
 	CGFloat sum = navBarCompensation + contentOffset;
 	if (sum < 0) {
