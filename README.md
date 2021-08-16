@@ -4,7 +4,7 @@
 ![Discussions](https://img.shields.io/github/discussions/semvis123/sonitus?style=flat-square)
 ![Stars](https://img.shields.io/github/stars/semvis123/sonitus?style=social)
 # Sonitus
-Noise-controls like **native**, but with for _non-Apple_ devices.  
+Noise-controls like **native**, but for _non-Apple_ devices.  
 Simply select your device and you're ready to go.
 \
 &nbsp;
