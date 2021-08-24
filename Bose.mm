@@ -21,7 +21,7 @@
 
 	dispatch_async(queue, ^{
 		[[[SessionController sharedController] writeDataCondition] lock];
-		while (![[SessionController sharedController] hasSpaceAvailable]){
+		while (![[SessionController sharedController] hasSpaceAvailable] && [[SessionController sharedController] writeDataLength] != 0){
 			[[[SessionController sharedController] writeDataCondition] wait];
 		}
 		[[[SessionController sharedController] writeDataCondition] unlock];
@@ -32,7 +32,7 @@
 
 		[[SessionController sharedController] writeData:[NSData dataWithBytes:command length:sizeof(command) - (v2? 0 : 1)]];
 		[[[SessionController sharedController] writeDataCondition] lock];
-		while (![[SessionController sharedController] hasSpaceAvailable]){
+		while (![[SessionController sharedController] hasSpaceAvailable] && [[SessionController sharedController] writeDataLength] != 0){
 			[[[SessionController sharedController] writeDataCondition] wait];
 		}
 		[[[SessionController sharedController] writeDataCondition] unlock];

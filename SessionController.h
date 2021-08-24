@@ -24,6 +24,7 @@ extern NSString *SessionDataReceivedNotification;
 -(void)writeData:(NSData *)data;
 -(NSUInteger)readBytesAvailable;
 -(bool)hasSpaceAvailable;
+-(long)writeDataLength;
 -(NSData *)readData:(NSUInteger)bytesToRead;
 
 @end
