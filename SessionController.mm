@@ -18,7 +18,7 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 			NSLog(@"write error");
 			break;
 		} else if (bytesWritten > 0) {
-			 [_writeData replaceBytesInRange:NSMakeRange(0, fmin(bytesWritten, [_writeData length])) withBytes:NULL length:fmax([_writeData length] - bytesWritten, 0)];
+			 [_writeData replaceBytesInRange:NSMakeRange(0, [_writeData length]) withBytes:NULL length:0];
 		}
 	}
 	[_writeDataCondition signal];
