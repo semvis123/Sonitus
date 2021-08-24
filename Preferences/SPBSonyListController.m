@@ -9,6 +9,15 @@ HBPreferences *preferences;
 
 	if (self) {
 		preferences = [[HBPreferences alloc] initWithIdentifier:@"com.semvis.sonituspreferences"];
+		[preferences registerDefaults:@{
+			@"Enabled": @YES,
+			@"HeadphonesName": @"WH-1000XM3",
+			@"SonyWindReductionSupport": @YES,
+			@"SonyNCValue": @0,
+			@"SonyfocusOnVoiceNC": @NO,
+			@"SonyASMValue": @20,
+			@"SonyFocusOnVoiceASM": @NO
+		}];
 		HBAppearanceSettings *appearanceSettings = [[HBAppearanceSettings alloc] init];
 		appearanceSettings.tintColor = [UIColor colorWithRed:0.1f green:0.45f blue:0.55f alpha:1];
 		appearanceSettings.tableViewCellSeparatorColor = [UIColor clearColor];
