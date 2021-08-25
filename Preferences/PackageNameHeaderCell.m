@@ -7,11 +7,10 @@
 	CGFloat contentOffset;
 	UINavigationBar *navigationBar; 
 	// fix for Shuffle inset Tables setting
- 	if ([NSStringFromClass([self.superview class]) isEqualToString:@"UITableViewWrapperView"])
-    {		
+ 	if ([NSStringFromClass([self.superview class]) isEqualToString:@"UITableViewWrapperView"]) {		
 		contentOffset = ((UIScrollView *)[self.superview.superview valueForKey:@"scrollView"]).contentOffset.y;
 		navigationBar = ((SPBRootListController *)[self.superview.superview.superview valueForKey:@"viewDelegate"]).navigationController.navigationController.navigationBar; 
-    }	else {
+	} else {
 		contentOffset = ((UIScrollView *)[self.superview valueForKey:@"scrollView"]).contentOffset.y;
 		navigationBar = ((SPBRootListController *)[self.superview.superview valueForKey:@"viewDelegate"]).navigationController.navigationController.navigationBar; 
 	}

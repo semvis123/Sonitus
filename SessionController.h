@@ -4,11 +4,11 @@
 extern NSString *SessionDataReceivedNotification;
 
 @interface SessionController : NSObject <EAAccessoryDelegate, NSStreamDelegate> {
-    EAAccessory *_accessory;
-    EASession *_session;
-    NSString *_protocolString;
-    NSMutableData *_writeData;
-    NSMutableData *_readData;
+	EAAccessory *_accessory;
+	EASession *_session;
+	NSString *_protocolString;
+	NSMutableData *_writeData;
+	NSMutableData *_readData;
 }
 
 @property (nonatomic, readonly) EAAccessory *accessory;
