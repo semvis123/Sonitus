@@ -13,6 +13,7 @@ Simply select your device and you're ready to go.
 ### Sony:
 - WH-1000XM3 / WH-1000XM4
 - WF-1000XM4
+- WI-C600N
 ### Bose:
 - Bose QC35
 - Bose NC700
