@@ -18,7 +18,8 @@ NSString *SessionDataReceivedNotification = @"SessionDataReceivedNotification";
 			NSLog(@"write error");
 			break;
 		} else if (bytesWritten > 0) {
-			 [_writeData replaceBytesInRange:NSMakeRange(0, MIN([_writeData length], bytesWritten)) withBytes:NULL length:0];
+			//  [_writeData replaceBytesInRange:NSMakeRange(0, MIN([_writeData length], bytesWritten)) withBytes:NULL length:0]; // seems to crash sometimes
+			[_writeData setData:[NSData dataWithBytes:NULL length:0]]; // clear the whole mutatableData instead, by setting it to an empty NSData
 		}
 	}
 	[_writeDataCondition signal];
