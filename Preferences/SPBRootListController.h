@@ -7,7 +7,3 @@
 
 @interface SPBRootListController : HBRootListController
 @end
-
-@interface PSSpecifier : NSObject
--(void)setValues:(id)arg1 titles:(id)arg2;
-@end
