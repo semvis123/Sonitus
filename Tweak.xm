@@ -31,6 +31,7 @@
 				return YES;
 			}
 		}
+		[[JabraController sharedInstance] setCurrentBluetoothListeningMode:arg1];
 		[[SoundcoreController sharedInstance] setCurrentBluetoothListeningMode:arg1];
 		return YES;
 	}

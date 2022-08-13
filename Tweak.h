@@ -2,6 +2,7 @@
 #import "Sony.h"
 #import "Bose.h"
 #import "Soundcore.h"
+#import "Jabra.h"
 #import "Sennheiser.h"
 #import <Cephei/HBPreferences.h>
 
