@@ -18,7 +18,7 @@
 	if ([preferences boolForKey:@"Enabled"] && [self.name isEqual:(NSString *)[preferences objectForKey:@"HeadphonesName"]]) {
 		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
 		for (EAAccessory *accessory in accessories) {
-			if ([[self valueForKey:@"ID"] containsString:[accessory valueForKey:@"macAddress"]]){
+			if ([self valueForKey:@"ID"] != nil && [accessory valueForKey:@"macAddress"] != nil && [[self valueForKey:@"ID"] containsString:[accessory valueForKey:@"macAddress"]]){
 				if ([accessory.protocolStrings containsObject:@"jp.co.sony.songpal.mdr.link"]){
 					[[SonyController sharedInstance] setCurrentBluetoothListeningMode:arg1 forAccessory:accessory v2:NO withPreferences:preferences];
 				} else if ([accessory.protocolStrings containsObject:@"jp.co.sony.songpal.mdr.link2"]){
