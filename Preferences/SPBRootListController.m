@@ -22,7 +22,7 @@
 -(NSArray *)specifiers {
 	if (!_specifiers) {
 		_specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
-		PSSpecifier *headphonesListSpecifier = [self specifierForID:@"HeadphonesList"];
+		PSSpecifierCustom *headphonesListSpecifier = (PSSpecifierCustom *) [self specifierForID:@"HeadphonesList"];
 		NSArray *btDevices = [[BluetoothManager sharedInstance] pairedDevices];
 		NSMutableArray *btNames = [[NSMutableArray alloc] initWithCapacity:btDevices.count+1];
 		if (headphonesListSpecifier) {
