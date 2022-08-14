@@ -61,9 +61,9 @@ if (isTP || isNC || isOff){
 		[peripheral writeValue:[NSData dataWithBytes:cap length:sizeof(cap)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 	}
 
-		if (isNC || isOff) {
-	Byte ack[] = {0x0d, 0x09, 0x00, 0x46, 0x13, 0x76};
-	for (int i = 0; i < 2; i++) {
+	if (isNC || isOff) {
+		Byte ack[] = {0x0d, 0x09, 0x00, 0x46, 0x13, 0x76};
+		for (int i = 0; i < 2; i++) {
 			[peripheral writeValue:[NSData dataWithBytes:ack length:sizeof(ack)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 		}
 	}
