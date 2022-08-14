@@ -9,8 +9,8 @@ id getOutputDevice(){
 
 NSDictionary *modes = @{
   @"Noise cancelling": @"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation",
-  @"Hear through": @"AVOutputDeviceBluetoothListeningModeAudioTransparency",
-  @"Inactive": @"AVOutputDeviceBluetoothListeningModeNormal"
+  @"Transparency mode": @"AVOutputDeviceBluetoothListeningModeAudioTransparency",
+  @"Normal": @"AVOutputDeviceBluetoothListeningModeNormal"
 };
 
 NSString *key = @"mode";
