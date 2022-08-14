@@ -30,7 +30,7 @@ NSString *key = @"mode";
 }
 
 -(NSString*) nameForIdentifier:(NSString*)identifier {
-    return @"Set Sonitus audio mode";
+    return @"Set Sonitus listening mode";
 }
 -(NSString*) descriptionSummaryForIdentifier:(NSString*)identifier {
     return @"Set the audio mode for Sonitus tweak";
