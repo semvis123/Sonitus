@@ -42,7 +42,7 @@ NSString *key = @"mode";
             @"key" : @"mode",
             @"label" : @"Mode:",
             @"defaultValue" : @"Noise cancelling",
-            @"items" : @[ @"Noise cancelling", @"Hear through", @"Inactive" ]
+            @"items" : @[ @"Noise cancelling", @"Transparency mode", @"Normal" ]
         }
     ];
 }
