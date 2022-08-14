@@ -2,7 +2,6 @@
 
 @implementation JabraController {}
 
-
 +(JabraController *)sharedInstance {
 	static JabraController *jabraController = nil;
 	if (jabraController == nil) {
@@ -38,17 +37,9 @@
 	bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
 	bool isTP = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"];
 
-if (isTP || isNC || isOff){
-	self.shouldChangeTolisteningMode = nil;
+	if (isTP || isNC || isOff){
 
-	// if (initialize) {
-	// 	Byte initializeCommand[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x01, 0x01, 0x0a, 0x00, 0x02};
-	// 	NSData *initializeData = [NSData dataWithBytes:initializeCommand length:sizeof(initializeCommand)];
-	// 	[peripheral writeValue:initializeData forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-	// 	Byte initializeCommand2[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x05, 0x01, 0x0a, 0x00, 0x06};
-	// 	NSData *initializeData2 = [NSData dataWithBytes:initializeCommand2 length:sizeof(initializeCommand2)];
-	// 	[peripheral writeValue:initializeData2 forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-	// }
+	self.shouldChangeTolisteningMode = nil;
 
 	Byte command[] = {0x0d, 0x09, 0x00, 0x88, 0x13, 0xbe, 0x01, static_cast<Byte>(isOff ? 0x01 : isNC ? 0x04 : 0x02)};
 	[peripheral writeValue:[NSData dataWithBytes:command length:sizeof(command)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
@@ -61,9 +52,9 @@ if (isTP || isNC || isOff){
 		[peripheral writeValue:[NSData dataWithBytes:cap length:sizeof(cap)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 	}
 
-		if (isNC || isOff) {
-	Byte ack[] = {0x0d, 0x09, 0x00, 0x46, 0x13, 0x76};
-	for (int i = 0; i < 2; i++) {
+	if (isNC || isOff) {
+		Byte ack[] = {0x0d, 0x09, 0x00, 0x46, 0x13, 0x76};
+		for (int i = 0; i < 2; i++) {
 			[peripheral writeValue:[NSData dataWithBytes:ack length:sizeof(ack)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
 		}
 	}

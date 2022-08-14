@@ -1,4 +1,4 @@
-TARGET := iphone:clang:latest
+TARGET := iphone:clang:latest:13.3.1
 INSTALL_TARGET_PROCESSES = SpringBoard
 ARCHS = arm64 arm64e
 
@@ -8,12 +8,12 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Sonitus
 
-$(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm Jabra.mm $(wildcard Actions/*.xm)
+$(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm Jabra.xm $(wildcard Actions/*.xm)
 SUBPROJECTS += Preferences
 
-$(TWEAK_NAME)_CFLAGS = -fobjc-arc -std=c++17
+$(TWEAK_NAME)_CFLAGS = -fobjc-arc
 
-$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory CoreBluetooth
+$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory CoreBluetooth UIKit
 $(TWEAK_NAME)_EXTRA_FRAMEWORKS = Cephei
 $(TWEAK_NAME)_LIBRARIES = powercuts
 
