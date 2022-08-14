@@ -1,5 +1,7 @@
 #import <Tweak.h>
 
+NSString *prev;
+
 %hook AVOutputDevice
 
 -(id)availableBluetoothListeningModes {
@@ -14,6 +16,17 @@
 }
 
 -(BOOL)setCurrentBluetoothListeningMode:(id)arg1 error:(id*)arg2  {
+
+	SBMediaController *mediaController = [%c(SBMediaController) sharedInstance];
+
+		// SBMediaController *mainMediaController = [%c(SBMediaController) sharedInstance]; 
+		if ([arg1 isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"] && [mediaController isPlaying]) {
+			[mediaController pauseForEventSource: 0];
+			prev = arg1;
+		}
+		else if ([mediaController isPaused] && [prev isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"]){
+			[mediaController playForEventSource: 0];
+		}
 
 	if ([preferences boolForKey:@"Enabled"] && [self.name isEqual:(NSString *)[preferences objectForKey:@"HeadphonesName"]]) {
 		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];

@@ -1,5 +1,6 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <ExternalAccessory/ExternalAccessory.h>
+#import <Foundation/Foundation.h>
 #include "spawn.h"
 
 @interface JabraController : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>

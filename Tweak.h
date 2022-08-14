@@ -6,6 +6,14 @@
 #import "Sennheiser.h"
 #import <Cephei/HBPreferences.h>
 
+@interface SBMediaController
+- (BOOL)playForEventSource:(long long)arg1;
+- (BOOL)pauseForEventSource: (long long)arg1;
++ (id)sharedInstance;
+- (BOOL)isPaused;
+- (BOOL)isPlaying;
+@end
+
 HBPreferences *preferences;
 
 @interface NSDistributedNotificationCenter : NSNotificationCenter

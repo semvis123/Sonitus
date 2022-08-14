@@ -2,7 +2,6 @@
 
 @implementation JabraController {}
 
-
 +(JabraController *)sharedInstance {
 	static JabraController *jabraController = nil;
 	if (jabraController == nil) {
@@ -39,8 +38,8 @@
 	bool isTP = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"];
 
 	if (isTP || isNC || isOff){
-	self.shouldChangeTolisteningMode = nil;
 
+	self.shouldChangeTolisteningMode = nil;
 
 	Byte command[] = {0x0d, 0x09, 0x00, 0x88, 0x13, 0xbe, 0x01, static_cast<Byte>(isOff ? 0x01 : isNC ? 0x04 : 0x02)};
 	[peripheral writeValue:[NSData dataWithBytes:command length:sizeof(command)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
