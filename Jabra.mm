@@ -41,14 +41,6 @@
 	if (isTP || isNC || isOff){
 	self.shouldChangeTolisteningMode = nil;
 
-	// if (initialize) {
-	// 	Byte initializeCommand[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x01, 0x01, 0x0a, 0x00, 0x02};
-	// 	NSData *initializeData = [NSData dataWithBytes:initializeCommand length:sizeof(initializeCommand)];
-	// 	[peripheral writeValue:initializeData forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-	// 	Byte initializeCommand2[] = {0x08, 0xee, 0x00, 0x00, 0x00, 0x05, 0x01, 0x0a, 0x00, 0x06};
-	// 	NSData *initializeData2 = [NSData dataWithBytes:initializeCommand2 length:sizeof(initializeCommand2)];
-	// 	[peripheral writeValue:initializeData2 forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
-	// }
 
 	Byte command[] = {0x0d, 0x09, 0x00, 0x88, 0x13, 0xbe, 0x01, static_cast<Byte>(isOff ? 0x01 : isNC ? 0x04 : 0x02)};
 	[peripheral writeValue:[NSData dataWithBytes:command length:sizeof(command)] forCharacteristic:characteristic type:CBCharacteristicWriteWithoutResponse];
