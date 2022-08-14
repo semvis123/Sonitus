@@ -54,7 +54,7 @@ NSString *key = @"mode";
 @end
 
 %ctor {
-   //Register a fake application for your tweak
+   //Register a fake application for the tweak
     PCApplication *Sonitus = [[PCApplication alloc] initWithBundleId:@"com.semvis.sonitus" name:@"Sonitus" iconPath:@"/Library/PreferenceBundles/sonitusPreferences.bundle/icon.png"];
     [[PowercutsManager sharedInstance] registerFakeApplication:Sonitus];
 
