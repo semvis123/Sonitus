@@ -38,7 +38,7 @@
 	bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
 	bool isTP = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"];
 
-if (isTP || isNC || isOff){
+	if (isTP || isNC || isOff){
 	self.shouldChangeTolisteningMode = nil;
 
 	// if (initialize) {
