@@ -1,3 +1,9 @@
+#import <libpowercuts/libpowercuts.h>
+#import "spawn.h"
+#import <Cephei/HBPreferences.h>
+
+HBPreferences *prefs;
+
 @interface SBMediaController : NSObject
 +(id)sharedInstance;
 @end

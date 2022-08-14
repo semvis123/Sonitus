@@ -1,10 +1,12 @@
-#import <libpowercuts/libpowercuts.h>
 #import <ModeSet.h>
 
 id getOutputDevice(){
 	id routingController = [[%c(SBMediaController) sharedInstance] valueForKey:@"_routingController"];
 	id outputDevice = [[[routingController pickedRoute] logicalLeaderOutputDevice] valueForKey:@"_avOutputDevice"];
-	return outputDevice;
+	
+  NSLog(@"{sonitus} output device %@", outputDevice);
+  
+  return outputDevice;
 }
 
 NSDictionary *modes = @{
@@ -13,33 +15,52 @@ NSDictionary *modes = @{
   @"Normal": @"AVOutputDeviceBluetoothListeningModeNormal"
 };
 
-NSString *key = @"mode";
+NSString *mode = @"mode";
+NSString *headphone = @"headphone";
 
 @interface ModeSet : PCAction
 @end
 @implementation ModeSet
 -(void) performActionForIdentifier:(NSString*)identifier withParameters:(NSDictionary*)parameters {
-  if (modes[parameters[key]]) {
-    [getOutputDevice() setCurrentBluetoothListeningMode:modes[parameters[key]]];
-  NSLog(@"done actions %@, parameter %@, set mode %@", identifier, parameters[key] ,modes[parameters[key]]);
+  
+  if (modes[parameters[mode]]) {
+    [getOutputDevice() setCurrentBluetoothListeningMode:modes[parameters[mode]]];
+    [prefs setObject:parameters[headphone] forKey:@"HeadphonesName"];
+    
+    // NSLog(@"{sonitus}: done actions %@, parameter %@, set mode %@, %@", identifier, parameters[mode] ,modes[parameters[mode]], [prefs objectForKey:@"HeadphonesList"]);
 
-  } else {
-    NSLog(@"Incorrect mode %@", parameters[key]);
-  }
+  } 
+  // else {
+  //   NSLog(@"{sonitus} Incorrect mode or headphone name %@", parameters[mode]);
+  // }
 
 }
 
 -(NSString*) nameForIdentifier:(NSString*)identifier {
-    return @"Set Sonitus listening mode";
+    return @"Set noise control";
 }
+
+-(NSArray<NSString*>*) keywordsForIdentifier:(NSString*)identifier {
+    return @[@"set", @"sonitus", @"audio", @"mode", @"Noise cancelling", @"Transparency mode", @"Normal"];
+}
+
 -(NSString*) descriptionSummaryForIdentifier:(NSString*)identifier {
-    return @"Set the audio mode for Sonitus tweak";
+    return @"Set the noise control mode for Sonitus tweak";
 }
+
 -(NSArray*) parametersDefinitionForIdentifier:(NSString*)identifier {
+		// NSArray *btDevices = [[BluetoothManager sharedInstance] pairedDevices];
+
     return @[
         @{
+            @"type" : @"text",
+            @"key" : headphone,
+            @"label" : @"Headphones",
+            @"defaultValue" : (NSString *)[prefs objectForKey:@"HeadphonesName"]
+        },
+        @{
             @"type" : @"enum",
-            @"key" : @"mode",
+            @"key" : mode,
             @"label" : @"Mode:",
             @"defaultValue" : @"Noise cancelling",
             @"items" : @[ @"Noise cancelling", @"Transparency mode", @"Normal" ]
@@ -47,13 +68,23 @@ NSString *key = @"mode";
     ];
 }
 
+-(NSString*) parameterSummaryForIdentifier:(NSString*)identifier {
+    return [NSString stringWithFormat:@"Switch ${%@} to ${%@}", headphone, mode];
+}
+
 -(NSString*) associatedAppBundleIdForIdentifier:(NSString*)identifier {
     return @"com.semvis.sonitus";
+}
+
+-(NSString*) iconPathForIdentifier:(NSString*)identifier {
+    return @"/Library/PreferenceBundles/sonitusPreferences.bundle/icon.png";
 }
 
 @end
 
 %ctor {
+  prefs = [[HBPreferences alloc] initWithIdentifier:@"com.semvis.sonituspreferences"];
+
    //Register a fake application for the tweak
     PCApplication *Sonitus = [[PCApplication alloc] initWithBundleId:@"com.semvis.sonitus" name:@"Sonitus" iconPath:@"/Library/PreferenceBundles/sonitusPreferences.bundle/icon.png"];
     [[PowercutsManager sharedInstance] registerFakeApplication:Sonitus];

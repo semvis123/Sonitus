@@ -1,4 +1,4 @@
-TARGET := iphone:clang:latest
+TARGET := iphone:clang:latest:13.3.1
 INSTALL_TARGET_PROCESSES = SpringBoard
 ARCHS = arm64 arm64e
 
@@ -13,7 +13,7 @@ SUBPROJECTS += Preferences
 
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc -std=c++17
 
-$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory CoreBluetooth
+$(TWEAK_NAME)_FRAMEWORKS = Foundation ExternalAccessory CoreBluetooth UIKit
 $(TWEAK_NAME)_EXTRA_FRAMEWORKS = Cephei
 $(TWEAK_NAME)_LIBRARIES = powercuts
 
