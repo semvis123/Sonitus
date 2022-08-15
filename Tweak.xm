@@ -23,15 +23,13 @@ NSString *prev;
 		if ([prev isEqual:arg1]){
 			return YES;
 		}
+	
+		prev = arg1;
 
 		if ([arg1 isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"] && [mediaController isPlaying]) {
 			[mediaController pauseForEventSource: 0];
 		}
-		else if ([mediaController isPaused] && [prev isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"]){
-			[mediaController playForEventSource: 0];
-		}
 
-		prev = arg1;
 		
 		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
 		for (EAAccessory *accessory in accessories) {

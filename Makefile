@@ -2,6 +2,8 @@ TARGET := iphone:clang:latest:13.3.1
 INSTALL_TARGET_PROCESSES = SpringBoard
 ARCHS = arm64 arm64e
 
+IP = le-carote
+
 # INSTALL_TARGET_PROCESSES = Preferences
 
 include $(THEOS)/makefiles/common.mk
