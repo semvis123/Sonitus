@@ -17,12 +17,12 @@ NSString *prev;
 
 -(BOOL)setCurrentBluetoothListeningMode:(id)arg1 error:(id*)arg2  {
 
-	if (prev == arg1){
-		return YES;
-	}
-
 	if ([preferences boolForKey:@"Enabled"] && [self.name isEqual:(NSString *)[preferences objectForKey:@"HeadphonesName"]]) {
 		SBMediaController *mediaController = [%c(SBMediaController) sharedInstance];
+
+		if ([prev isEqual:arg1]){
+			return YES;
+		}
 
 		if ([arg1 isEqual:@"AVOutputDeviceBluetoothListeningModeAudioTransparency"] && [mediaController isPlaying]) {
 			[mediaController pauseForEventSource: 0];
