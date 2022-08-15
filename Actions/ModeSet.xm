@@ -16,7 +16,7 @@ NSDictionary *modes = @{
 };
 
 NSString *mode = @"mode";
-NSString *headphone = @"headphone";
+// NSString *headphone = @"headphone";
 
 @interface ModeSet : PCAction
 @end
@@ -25,7 +25,7 @@ NSString *headphone = @"headphone";
   
   if (modes[parameters[mode]]) {
     [getOutputDevice() setCurrentBluetoothListeningMode:modes[parameters[mode]]];
-    [prefs setObject:parameters[headphone] forKey:@"HeadphonesName"];
+    // [prefs setObject:parameters[headphone] forKey:@"HeadphonesName"];
     
     // NSLog(@"{sonitus}: done actions %@, parameter %@, set mode %@, %@", identifier, parameters[mode] ,modes[parameters[mode]], [prefs objectForKey:@"HeadphonesList"]);
 
@@ -52,12 +52,12 @@ NSString *headphone = @"headphone";
 		// NSArray *btDevices = [[BluetoothManager sharedInstance] pairedDevices];
 
     return @[
-        @{
-            @"type" : @"text",
-            @"key" : headphone,
-            @"label" : @"Headphones",
-            @"defaultValue" : (NSString *)[prefs objectForKey:@"HeadphonesName"]
-        },
+        // @{
+        //     @"type" : @"text",
+        //     @"key" : headphone,
+        //     @"label" : @"Headphones",
+        //     @"defaultValue" : (NSString *)[prefs objectForKey:@"HeadphonesName"]
+        // },
         @{
             @"type" : @"enum",
             @"key" : mode,
@@ -69,7 +69,8 @@ NSString *headphone = @"headphone";
 }
 
 -(NSString*) parameterSummaryForIdentifier:(NSString*)identifier {
-    return [NSString stringWithFormat:@"Switch ${%@} to ${%@}", headphone, mode];
+    // return [NSString stringWithFormat:@"Switch ${%@} to ${%@}", headphone, mode];
+    return [NSString stringWithFormat:@"Switch headphones to ${%@}", mode];
 }
 
 -(NSString*) associatedAppBundleIdForIdentifier:(NSString*)identifier {
@@ -83,7 +84,7 @@ NSString *headphone = @"headphone";
 @end
 
 %ctor {
-  prefs = [[HBPreferences alloc] initWithIdentifier:@"com.semvis.sonituspreferences"];
+  // prefs = [[HBPreferences alloc] initWithIdentifier:@"com.semvis.sonituspreferences"];
 
    //Register a fake application for the tweak
     PCApplication *Sonitus = [[PCApplication alloc] initWithBundleId:@"com.semvis.sonitus" name:@"Sonitus" iconPath:@"/Library/PreferenceBundles/sonitusPreferences.bundle/icon.png"];
