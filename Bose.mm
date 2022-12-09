@@ -28,7 +28,13 @@
 		bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
 		bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
 
-		char command[] = {0x01, static_cast<char>(v2 ? 0x05 : 0x06), 0x02, static_cast<char>(v2 ? 0x02 : 0x01), static_cast<char>(isNC ? (v2 ? 0x00 : 0x01) : isOff ? (v2? 0x00 : 0x03) : (v2 ? 0x0a : 0x00)), static_cast<char>(v2 ? (isOff? 0x00 : 0x01) : NULL)};
+		char command[] = {0x01,
+		 static_cast<char>(v2 ? 0x05 : 0x06),
+		 0x02,
+		 static_cast<char>(v2 ? 0x02 : 0x01),
+		 static_cast<char>(isNC ? (v2 ? 0x00 : 0x01) : isOff ? (v2? 0x00 : 0x00) : (v2 ? 0x0a : 0x03)),
+		 static_cast<char>(v2 ? (isOff? 0x00 : 0x01) : NULL)
+		 };
 
 		[[SessionController sharedController] writeData:[NSData dataWithBytes:command length:sizeof(command) - (v2? 0 : 1)]];
 		[[[SessionController sharedController] writeDataCondition] lock];

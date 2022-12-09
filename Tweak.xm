@@ -1,5 +1,7 @@
 #import <Tweak.h>
 
+NSString *previous = @"AVOutputDeviceBluetoothListeningModeNormal";
+
 %hook AVOutputDevice
 
 -(id)availableBluetoothListeningModes {
@@ -14,6 +16,7 @@
 }
 
 -(BOOL)setCurrentBluetoothListeningMode:(id)arg1 error:(id*)arg2  {
+	previous = arg1;
 
 	if ([preferences boolForKey:@"Enabled"] && [self.name isEqual:(NSString *)[preferences objectForKey:@"HeadphonesName"]]) {
 		NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager] connectedAccessories];
@@ -39,8 +42,7 @@
 
 -(id)currentBluetoothListeningMode {
 	if ([preferences boolForKey:@"Enabled"] && [self.name isEqual:(NSString *)[preferences objectForKey:@"HeadphonesName"]]) {
-		// currently not being used
-		return nil;
+		return previous;
 	}
 	return %orig;
 }
