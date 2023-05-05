@@ -33,11 +33,11 @@ jobs:
           submodules: recursive
       - name: Download SDKs
         run: |
-          curl -LO https://github.com/chrisharper22/sdks/archive/main.zip
+          curl -LO https://github.com/theos/sdks/archive/master.zip
           TMP=$(mktemp -d)
-          unzip main.zip -d $TMP
-          mv $TMP/sdks-main/*.sdk theos/sdks
-          rm -r main.zip $TMP
+          unzip master.zip -d $TMP
+          mv $TMP/sdks-master/*.sdk theos/sdks
+          rm -r master.zip $TMP
       - name: Build Tweak
         id: build
         run: |
