@@ -1,10 +1,12 @@
-TARGET := iphone:clang:13.3.1
+TARGET := iphone:clang:14.4
 INSTALL_TARGET_PROCESSES = SpringBoard
 # INSTALL_TARGET_PROCESSES = Preferences
 
+THEOS_PACKAGE_SCHEME=rootless
+
 THEOS_DEVICE_IP = 192.168.2.15
 include $(THEOS)/makefiles/common.mk
-ARCHS = arm64 arm64e
+ARCHS = arm64e
 TWEAK_NAME = Sonitus
 $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm
 SUBPROJECTS += Preferences

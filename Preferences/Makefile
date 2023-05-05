@@ -1,9 +1,12 @@
-TARGET := iphone:clang:13.3.1
+TARGET := iphone:clang:14.4
 
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = sonitusPreferences
 
+THEOS_PACKAGE_SCHEME=rootless
+
+ARCHS = arm64e
 $(BUNDLE_NAME)_FILES = SPBRootListController.m SPBSonyListController.m PackageNameHeaderCell.m
 $(BUNDLE_NAME)_FRAMEWORKS = UIKit BluetoothManager
 $(BUNDLE_NAME)_EXTRA_FRAMEWORKS = Cephei CepheiPrefs

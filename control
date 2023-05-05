@@ -1,10 +1,10 @@
 Package: com.semvis.sonitus
 Name: Sonitus
-Version: 1.0.4
+Version: 1.0.4-rootless
 Architecture: iphoneos-arm
 Description: Sonitus, bring the noise cancellation control of your headphones to the built-in iOS menu.
 Maintainer: Sem Visscher
 Author: Sem Visscher
 Section: Tweaks
-Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.17), firmware (>=13.0)
+Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.17), firmware (>=15.0)
 Conflicts: com.semvis123.sonyfy, com.semvis123.headphonify
