@@ -35,7 +35,7 @@ jobs:
         run: |
           curl -LO https://github.com/chrisharper22/sdks/archive/main.zip
           TMP=$(mktemp -d)
-          unzip master.zip -d $TMP
+          unzip main.zip -d $TMP
           mv $TMP/sdks-main/*.sdk theos/sdks
           rm -r main.zip $TMP
       - name: Build Tweak
