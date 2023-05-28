@@ -19,6 +19,7 @@ Simply select your device and you're ready to go.
 - Bose NC700
 ### Anker Soundcore:
 - Life Q30
+- Liberty Air 2 Pro
 
 Let me know if your device is supported but I haven't put it on the list yet :)  
 Would you like to see other headphones supported as well? Open an issue (or open a pull request), or DM me on Twitter.
