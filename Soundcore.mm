@@ -29,7 +29,7 @@
 			[self.centralManager connectPeripheral:self.peripheral options:nil];
 		}
 	} else {
-		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"DAF51A01"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+		[self.centralManager scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"DAF51C01"],[CBUUID UUIDWithString:@"DAF51A01"]] options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
 	}
 }
 
