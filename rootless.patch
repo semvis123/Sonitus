@@ -1,0 +1,56 @@
+diff --git a/Makefile b/Makefile
+index 29931eb..b5e4adb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,10 +1,12 @@
+-TARGET := iphone:clang:13.3.1
++TARGET := iphone:clang:14.5
+ INSTALL_TARGET_PROCESSES = SpringBoard
+ # INSTALL_TARGET_PROCESSES = Preferences
+ 
++THEOS_PACKAGE_SCHEME=rootless
++
+ THEOS_DEVICE_IP = 192.168.2.15
+ include $(THEOS)/makefiles/common.mk
+-ARCHS = arm64 arm64e
++ARCHS = arm64e
+ TWEAK_NAME = Sonitus
+ $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm
+ SUBPROJECTS += Preferences
+
+diff --git a/Preferences/Makefile b/Preferences/Makefile
+index 78eca64..0308b09 100644
+--- a/Preferences/Makefile
++++ b/Preferences/Makefile
+@@ -1,9 +1,12 @@
+-TARGET := iphone:clang:13.3.1
++TARGET := iphone:clang:14.5
+ 
+ include $(THEOS)/makefiles/common.mk
+ 
+ BUNDLE_NAME = sonitusPreferences
+ 
++THEOS_PACKAGE_SCHEME=rootless
++
++ARCHS = arm64e
+ $(BUNDLE_NAME)_FILES = SPBRootListController.m SPBSonyListController.m PackageNameHeaderCell.m
+ $(BUNDLE_NAME)_FRAMEWORKS = UIKit BluetoothManager
+ $(BUNDLE_NAME)_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
+
+diff --git a/control b/control
+index 0f31842..7236d5f 100644
+--- a/control
++++ b/control
+@@ -1,10 +1,10 @@
+ Package: com.semvis.sonitus
+ Name: Sonitus
+ Version: 1.0.4
+ Architecture: iphoneos-arm
+ Description: Sonitus, bring the noise cancellation control of your headphones to the built-in iOS menu.
+ Maintainer: Sem Visscher
+ Author: Sem Visscher
+ Section: Tweaks
+-Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.17), firmware (>=13.0)
++Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.17), firmware (>=15.0)
+ Conflicts: com.semvis123.sonyfy, com.semvis123.headphonify
+
