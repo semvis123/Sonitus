@@ -1,5 +1,6 @@
 ![Latest release](https://img.shields.io/github/v/tag/semvis123/sonitus?include_prereleases&label=Latest%20release&style=flat-square)
-![Build status](https://img.shields.io/github/workflow/status/semvis123/sonitus/Build?style=flat-square)
+[![Build rootful](https://github.com/semvis123/Sonitus/actions/workflows/build_rootful.yml/badge.svg)](https://github.com/semvis123/Sonitus/actions/workflows/build_rootful.yml)
+[![Build rootful](https://github.com/semvis123/Sonitus/actions/workflows/build_rootless.yml/badge.svg)](https://github.com/semvis123/Sonitus/actions/workflows/build_rootless.yml)
 ![License](https://img.shields.io/github/license/semvis123/sonitus?style=flat-square)
 ![Discussions](https://img.shields.io/github/discussions/semvis123/sonitus?style=flat-square)
 ![Stars](https://img.shields.io/github/stars/semvis123/sonitus?style=social)
