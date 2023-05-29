@@ -1,7 +1,6 @@
-#import <CepheiPrefs/HBListController.h>
-#import <Preferences/PSSpecifier.h>
-#import <CepheiPrefs/HBAppearanceSettings.h>
 #import <Cephei/HBPreferences.h>
+#import <CepheiPrefs/CepheiPrefs.h>
+#import <Preferences/PSSpecifier.h>
 
 @interface SPBSonyListController : HBListController
 @end

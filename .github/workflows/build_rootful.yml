@@ -1,4 +1,4 @@
-name: Build
+name: Build rootful
 
 # Controls when the action will run. 
 on:
@@ -14,7 +14,7 @@ on:
 jobs:
   make:
     name: Build Tweak
-    runs-on: macos-latest
+    runs-on: macos-11
     env:
       THEOS: theos
     steps:
@@ -43,7 +43,7 @@ jobs:
       - name: Build Tweak
         id: build
         run: |
-         make clean package FINALPACKAGE=1
+         make clean package FINALPACKAGE=1 messages=yes
          echo "::set-output name=package::$(ls -t packages | head -n1)"
       - name: Upload To GitHub Artifacts
         uses: actions/upload-artifact@v2.2.2

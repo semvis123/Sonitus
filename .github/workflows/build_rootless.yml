@@ -38,6 +38,9 @@ jobs:
           unzip master.zip -d $TMP
           mv $TMP/sdks-master/*.sdk theos/sdks
           rm -r master.zip $TMP
+      - name: Apply rootless patch
+        run: |
+          git apply rootless.patch
       - name: Build Tweak
         id: build
         run: |

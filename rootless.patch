@@ -38,15 +38,10 @@ index 78eca64..0308b09 100644
  $(BUNDLE_NAME)_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 
 diff --git a/control b/control
-index 0f31842..7236d5f 100644
+index b60641b..72a059b 100644
 --- a/control
 +++ b/control
-@@ -1,10 +1,10 @@
- Package: com.semvis.sonitus
- Name: Sonitus
- Version: 1.0.4
- Architecture: iphoneos-arm
- Description: Sonitus, bring the noise cancellation control of your headphones to the built-in iOS menu.
+@@ -6,5 +6,5 @@ Description: Sonitus, bring the noise cancellation control of your headphones to
  Maintainer: Sem Visscher
  Author: Sem Visscher
  Section: Tweaks
