@@ -35,6 +35,7 @@ NSString *previous = @"AVOutputDeviceBluetoothListeningModeNormal";
 			}
 		}
 		[[SoundcoreController sharedInstance] setCurrentBluetoothListeningMode:arg1];
+		[[JabraController sharedInstance] setCurrentBluetoothListeningMode:arg1];
 		return YES;
 	}
 	return %orig;

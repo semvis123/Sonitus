@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "Sony.h"
 #import "Bose.h"
+#import "Jabra.h"
 #import "Soundcore.h"
 #import "Sennheiser.h"
 #import <Cephei/HBPreferences.h>
