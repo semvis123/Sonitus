@@ -1,6 +1,6 @@
 Package: com.semvis.sonitus
 Name: Sonitus
-Version: 1.0.5
+Version: 1.0.6
 Architecture: iphoneos-arm
 Description: Sonitus, bring the noise cancellation control of your headphones to the built-in iOS menu.
 Maintainer: Sem Visscher
