@@ -15,7 +15,7 @@ index 29931eb..b5e4adb 100644
 -ARCHS = arm64 arm64e
 +ARCHS = arm64e
  TWEAK_NAME = Sonitus
- $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm
+ $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm Jabra.mm
  SUBPROJECTS += Preferences
 
 diff --git a/Preferences/Makefile b/Preferences/Makefile
