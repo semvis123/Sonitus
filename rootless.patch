@@ -1,8 +1,8 @@
 diff --git a/Makefile b/Makefile
-index 29931eb..b5e4adb 100644
+index 29931eb..f1306d0 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,10 +1,12 @@
+@@ -1,7 +1,9 @@
 -TARGET := iphone:clang:13.3.1
 +TARGET := iphone:clang:14.5
  INSTALL_TARGET_PROCESSES = SpringBoard
@@ -12,17 +12,13 @@ index 29931eb..b5e4adb 100644
 +
  THEOS_DEVICE_IP = 192.168.2.15
  include $(THEOS)/makefiles/common.mk
--ARCHS = arm64 arm64e
-+ARCHS = arm64e
- TWEAK_NAME = Sonitus
- $(TWEAK_NAME)_FILES = Tweak.xm SessionController.mm Sony.mm Bose.mm Soundcore.mm Sennheiser.mm
- SUBPROJECTS += Preferences
+ ARCHS = arm64 arm64e
 
 diff --git a/Preferences/Makefile b/Preferences/Makefile
-index 78eca64..0308b09 100644
+index 3d00731..308eda4 100644
 --- a/Preferences/Makefile
 +++ b/Preferences/Makefile
-@@ -1,9 +1,12 @@
+@@ -1,9 +1,11 @@
 -TARGET := iphone:clang:13.3.1
 +TARGET := iphone:clang:14.5
  
@@ -32,13 +28,12 @@ index 78eca64..0308b09 100644
  
 +THEOS_PACKAGE_SCHEME=rootless
 +
-+ARCHS = arm64e
+ ARCHS = arm64 arm64e
  $(BUNDLE_NAME)_FILES = SPBRootListController.m SPBSonyListController.m PackageNameHeaderCell.m
  $(BUNDLE_NAME)_FRAMEWORKS = UIKit BluetoothManager
- $(BUNDLE_NAME)_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 
 diff --git a/control b/control
-index b60641b..72a059b 100644
+index affe819..924e9df 100644
 --- a/control
 +++ b/control
 @@ -6,5 +6,5 @@ Description: Sonitus, bring the noise cancellation control of your headphones to
