@@ -35,6 +35,7 @@
 		[[[SessionController sharedController] writeDataCondition] unlock];
 		bool isOff = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeNormal"];
 		bool isNC = [listeningMode isEqual:@"AVOutputDeviceBluetoothListeningModeActiveNoiseCancellation"];
+		bool wfxm5 = [preferences boolForKey:@"WF1000XM5"];
 		char sendStatus = v2? 0x1 : isOff ? 0x00 : 0x11;
 		char ncAsmValue = isNC? [preferences integerForKey:@"SonyNCValue"] : [preferences integerForKey:@"SonyASMValue"];
 		char focusOnVoice = isNC? [preferences integerForKey:@"SonyFocusOnVoiceNC"] : [preferences integerForKey:@"SonyFocusOnVoiceASM"];
@@ -42,6 +43,15 @@
 		char settingType = ![preferences boolForKey:@"SonyWindReductionSupport"] && ncAsmValue == 0 ? 0x0 : 0x2;
 		char inquiredType = v2? 0x15 : 0x2;
 		char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, inquiredType, sendStatus, static_cast<char>(v2 ? !isOff : settingType), static_cast<char>(v2 ? !isNC : dualSingleValue), static_cast<char>(v2 ? focusOnVoice? 0x5 : 0x2 : !!settingType), focusOnVoice, ncAsmValue};
+
+		if (wfxm5) {
+			//  0x3e 0x0c 0x00 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x01 0x00 0x14 0xffffffa9 0x3c // transparency
+			//  0x3e 0x0c 0x00 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x00 0x00 0x14 0xffffffa8 0x3c // noise canceling
+			//  0x3e 0x0c 0x01 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x00 0x00 0x00 0x14 0xffffffa8 0x3c // off
+			//  0x3e 0x0c 0x01 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x01 0x01 0x14 0xffffffa8 0x3c // transparency - focus on voice
+			char newCommand[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x07, 0x68, 0x17, sendStatus, !isOff, (!isNC && !isOff) || focusOnVoice, focusOnVoice, ncAsmValue};
+			memcpy(command, newCommand, sizeof(newCommand));
+		}
 
 		unsigned char sum = 0;
 		for (int i = 0; i < sizeof(command); i++){

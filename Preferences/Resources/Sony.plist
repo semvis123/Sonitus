@@ -126,6 +126,18 @@
 			<key>label</key>
 			<string>Supports wind reduction</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false />
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>WF1000XM5</string>
+			<key>label</key>
+			<string>WF-1000XM5</string>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>Sony</string>
