@@ -117,18 +117,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
-			<key>default</key>  
-			<true />
-			<key>defaults</key>
-			<string>com.semvis.sonituspreferences</string>
-			<key>key</key>
-			<string>SonyWindReductionSupport</string>
-			<key>label</key>
-			<string>Supports wind reduction</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSSwitchCell</string>
 			<key>default</key>
 			<false />
 			<key>defaults</key>
@@ -137,6 +125,18 @@
 			<string>WF1000XM5</string>
 			<key>label</key>
 			<string>WF-1000XM5</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>  
+			<true />
+			<key>defaults</key>
+			<string>com.semvis.sonituspreferences</string>
+			<key>key</key>
+			<string>SonyWindReductionSupport</string>
+			<key>label</key>
+			<string>Supports wind reduction</string>
 		</dict>
 	</array>
 	<key>title</key>
