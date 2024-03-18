@@ -43,7 +43,7 @@
 		char settingType = ![preferences boolForKey:@"SonyWindReductionSupport"] && ncAsmValue == 0 ? 0x0 : 0x2;
 		char inquiredType = v2? 0x15 : 0x2;
 		char command[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x08, 0x68, inquiredType, sendStatus, static_cast<char>(v2 ? !isOff : settingType), static_cast<char>(v2 ? !isNC : dualSingleValue), static_cast<char>(v2 ? focusOnVoice? 0x5 : 0x2 : !!settingType), focusOnVoice, ncAsmValue};
-
+		size_t commandSize = sizeof(command);
 		if (wfxm5 && v2) {
 			//  0x3e 0x0c 0x00 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x01 0x00 0x14 0xffffffa9 0x3c // transparency
 			//  0x3e 0x0c 0x00 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x00 0x00 0x14 0xffffffa8 0x3c // noise canceling
@@ -51,18 +51,19 @@
 			//  0x3e 0x0c 0x01 0x00 0x00 0x00 0x07 0x68 0x17 0x01 0x01 0x01 0x01 0x14 0xffffffa8 0x3c // transparency - focus on voice
 			char newCommand[] = {0x0c, pingPong, 0x00, 0x00, 0x00, 0x07, 0x68, 0x17, sendStatus, !isOff, (!isNC && !isOff) || focusOnVoice, focusOnVoice, ncAsmValue};
 			memcpy(command, newCommand, sizeof(newCommand));
+			commandSize = sizeof(newCommand);
 		}
 
 		unsigned char sum = 0;
-		for (int i = 0; i < sizeof(command); i++){
+		for (int i = 0; i < commandSize; i++){
 			sum += command[i];
 		}
 
-		char commandPacked[1 + sizeof(command) + 2];
+		char commandPacked[1 + commandSize + 2];
 		commandPacked[0] = 0x3e;
-		memcpy(&commandPacked[1], command, sizeof(command));
-		commandPacked[1 + sizeof(command)] = sum;
-		commandPacked[1 + sizeof(command) + 1] = 0x3c;
+		memcpy(&commandPacked[1], command, commandSize);
+		commandPacked[1 + commandSize] = sum;
+		commandPacked[1 + commandSize + 1] = 0x3c;
 
 		[[SessionController sharedController] writeData:[NSData dataWithBytes:commandPacked length:sizeof(commandPacked)]];
 		[[[SessionController sharedController] writeDataCondition] lock];
